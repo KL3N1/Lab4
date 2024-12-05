@@ -6,7 +6,7 @@
 
 class Dish {
 private:
-    std::string name;  // std::string вместо char[50]
+    std::string name;
     float price;
     int quantity;
 
@@ -29,12 +29,8 @@ private:
     int dish_count;
 
 public:
-    // Конструктор
-    Menu() {
-        dish_count = 0;
-    }
+    Menu() : dish_count(0) {}
 
-    // Метод для добавления блюда в меню
     void addDish(Dish* dish) {
         if (dish_count < MAX_DISHES) {
             dishes[dish_count] = dish;
@@ -45,7 +41,6 @@ public:
         }
     }
 
-    // Метод для вывода меню
     void print() const {
         printf("Меню:\n");
         for (int i = 0; i < dish_count; i++) {
@@ -54,59 +49,51 @@ public:
         printf("\n");
     }
 
-    // Получение блюда по индексу
     Dish* getDish(int index) const {
         if (index >= 0 && index < dish_count) {
             return dishes[index];
         }
-        return NULL;
+        return nullptr;
     }
 };
 
 class Client {
 private:
-    char name[50];
-    char phone[15];
+    std::string name;
+    std::string phone;
 
 public:
-    // Конструктор
-    Client(const char* client_name, const char* client_phone) {
-        strcpy_s(name, client_name);
-        strcpy_s(phone, client_phone);
-    }
+    Client(const std::string& client_name, const std::string& client_phone)
+        : name(client_name), phone(client_phone) {}
 
-    // Метод для вывода информации о клиенте
     void print() const {
-        printf("Клиент: %s, Телефон: %s\n", name, phone);
+        printf("Клиент: %s, Телефон: %s\n", name.c_str(), phone.c_str());
     }
 
-    const char* getName() const { return name; }
+    const std::string& getName() const { return name; }
 };
 
 class Employee {
 private:
-    char name[50];
+    std::string name;
     int id;
 
 public:
-    // Конструктор
-    Employee(const char* employee_name, int employee_id) {
-        strcpy_s(name, employee_name);
-        id = employee_id;
-    }
+    Employee(const std::string& employee_name, int employee_id)
+        : name(employee_name), id(employee_id) {}
 
-    // Метод для вывода информации о сотруднике
     void print() const {
-        printf("Официант: %s, ID: %d\n", name, id);
+        printf("Официант: %s, ID: %d\n", name.c_str(), id);
     }
 
-    const char* getName() const { return name; }
+    const std::string& getName() const { return name; }
 };
+
 
 class Order {
 private:
     static int totalOrders;  // Статическое поле для подсчёта заказов
-    std::string clientName;  // std::string вместо char[50]
+    std::string clientName;
     Dish* orderedDishes[MAX_ORDERS];
     int orderCount;
     float totalPrice;
